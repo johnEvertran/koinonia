@@ -1,0 +1,98 @@
+{
+  "name": "koinonia-desktop",
+  "version": "1.0.1",
+  "description": "코이노니아 데스크톱 앱",
+  "author": "EverTran",
+  "main": "public/electron.js",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron .",
+    "electron:dev": "electron .",
+    "electron:build": "electron-builder",
+    "electron:windows": "electron-builder --win",
+    "electron:mac": "electron-builder --mac",
+    "electron:publish": "electron-builder --publish always"
+  },
+  "dependencies": {
+    "electron-updater": "^6.6.2",
+    "socket.io-client": "^4.8.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^26.2.1",
+    "electron-builder": "^24.6.4",
+    "wait-on": "^7.0.1"
+  },
+  "build": {
+    "appId": "com.koinonia.app",
+    "productName": "코이노니아",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "johnEvertran",
+        "repo": "koinonia",
+        "private": true,
+        "releaseType": "draft"
+      }
+    ],
+    "files": [
+      "public/electron.js",
+      "public/preload.js",
+      "public/splash.html",
+      "public/koinonia.png",
+      "public/windowStateManager.js",
+      "assets/icon.png",
+      "!src",
+      "!**/*.ts",
+      "!**/*.tsx",
+      "!**/*.md",
+      "!**/*.map",
+      "!**/__tests__/**",
+      "!**/test*/**",
+      "!**/example*/**"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "asar": true,
+    "mac": {
+      "category": "public.app-category.social-networking",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "electronUpdaterCompatibility": ">=2.15.0"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "publisherName": "EverTran"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "코이노니아",
+      "uninstallDisplayName": "코이노니아",
+      "differentialPackage": true
+    },
+    "releaseInfo": {
+      "releaseNotes": "최신 기능 및 버그 수정이 포함된 업데이트입니다."
+    }
+  }
+}
